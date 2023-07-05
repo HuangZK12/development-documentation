@@ -402,3 +402,5 @@ const handleResets = () => {
 | tableSelectionData | []     | 已选数组,用于饿了么表格选择函数,响应式数组                     |
 | handleSelection    | Func   | 饿了么表格选择方法对应的函数                                   |
 | handleCb           | Func   | 传入一个回调函数，验证通过后触发，参数为已选数据，和映射后的id |
+
+
