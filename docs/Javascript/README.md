@@ -518,3 +518,12 @@ export const exportExcel = async (options = {}) => {
   }
 }
 ```
+#### api
+```js
+// 导出-表头
+export const export_header = (url) => () => _post(
+  url, { query: {} }
+)
+// 导出-表体
+export const export_body = (url) => (params) => _post(url, params)
+```
