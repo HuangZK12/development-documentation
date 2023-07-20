@@ -195,7 +195,7 @@ const { data, loading, total, page, search, reset, request } = useRequest(accoun
 
 
 
-## useRequestLoading
+## useRequestLoading <Badge type="warning" text="老干局第二个参数为params" vertical="middle" />
 > 适用于需要加载动画的请求（获取详情，新增/编辑），返回Promise
 
 ### 代码

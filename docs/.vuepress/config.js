@@ -32,7 +32,10 @@ export default defineUserConfig({
         text: 'Git常见问题',
         link: '/git/'
       },
+      {
+        text: '系统相关',
+        link: '/system/'
+      },
     ]
-  })
-
+  }),
 })
