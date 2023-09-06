@@ -1,5 +1,6 @@
 import { defineUserConfig } from 'vuepress'
 import { defaultTheme } from 'vuepress'
+import { shikiPlugin } from '@vuepress/plugin-shiki'
 
 export default defineUserConfig({
   lang: 'zh-CN',
@@ -33,9 +34,18 @@ export default defineUserConfig({
         link: '/git/'
       },
       {
-        text: '系统相关',
-        link: '/system/'
+        text: '项目相关',
+        link: '/product/'
+      },
+      {
+        text: '开发相关',
+        link: '/develop/'
       },
     ]
   }),
+  plugins: [
+    shikiPlugin({
+      theme: "one-dark-pro",
+    }),
+  ],
 })
