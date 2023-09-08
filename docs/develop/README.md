@@ -1,38 +1,34 @@
 # vue开发常见问题  <Badge type="tip" text="vue2.7+" vertical="middle" />
+## 文件结构
+### 命名
+- 文件 - 短横线命名法
+- 组件 - 大驼峰命名法
+- 变量 - 小驼峰命名法
+- hooks - use开头
 
-## 一些规范
-### 命名 
-文件 - 短横线命名法
-
-组件 - 大驼峰命名法
-
-变量 - 小驼峰命名法
-
-hooks - use开头
-
-> 页面文件结构
+### 页面层级
 ```
-|-views
-  |--components // 组件
-  |--hooks // hooks
-  |--other-view // 其他页面（表单、详情）
-    |--components // 组件
+|-views/
+  |--components/ // 组件
+  |--hooks/ // hooks
+  |--other-view/ // 其他页面（表单、详情）
+    |--components/ // 组件
     |--index.vue // 页面
   |--index.vue // 页面
 ```
 
-### 接口api
+## 接口api
 
-> 文件结构
+### 文件结构
 ```
-|-api
-  |--modules // 模块
-    |--modules_name // 模块名称
+|-api/
+  |--modules/ // 模块
+    |--modules_name/ // 模块名称
       |--view_name.js // 页面接口
   |--general.js // 公共方法
 ```
 
-> 总部常见api写法及不可取原因
+### 总部常见api写法及不可取原因
 - 每个模块方法为一个对象全部导出 
   - 变量命存在重复可能，且不报错、不提示
   - 无法通过快捷链接定位到具体的接口
@@ -44,11 +40,11 @@ hooks - use开头
 - 全部api挂载到一个对象上，挂载原型或注入
   - 同上且更离谱！！！
 
-> 推荐写法
+### 推荐写法
  - 每个模块一个文件，每个方法使用const定义且单独导出
  - 拦截函数、响应处理只创建一次
  - 顶部增加注释
-> 示例
+### 示例
 ```js
 /**
  * @description: api description
@@ -71,9 +67,12 @@ export const api_info = (officeId) => get(`api/info/${officeId}`)
 // 删除
 export const api_dels = (params) => post('api/dels', params)
 ```
+### 请求时机
+- 请求时机放在created或之前，如setup，放在onMounted会造成页面渲染卡顿
+- 操作dom需要放在onMounted
 
 ## 表格
-**如何快速生成一个请求列表的模板**
+### 如何快速生成一个请求列表的模板
 > **使用vscode代码片段**
 > 包含删除、导出、搜索、分页、表格选择等功能，使用setup语法糖可以分块管理
 
@@ -178,6 +177,74 @@ export const api_dels = (params) => post('api/dels', params)
 
 ## 表单
 
+### 表单验证
+- prop必传
+- prop必须与值必须相同
+- 常规必填、手机验证等减少使用rules配置，试用rlRule方法，方便美观
+- 表单触发应该在提交请求之前
+
+
+
+
+## 变量
+### 一些建议
+- 不建议使用`reactive`定义`data`
+  - 失去`composition`块结构的优势
+  - 变量过多时，不利于管理
+  - 无法使用`shallowRef`优化性能
+  
+### 替换对象中的值
+- 使用`ref`定义对象
+- 如果不需要属性是响应式（如获取详情）则使用`shallowRef`定义提高性能
+- 使用`toRaw`获取原始对象，修改原始对象的值，即可实现响应式
+
+### 浅拷贝造成的数据异常
+> 使用弹窗时,直接给对象复制,导致浅拷贝,修改弹窗中的值,会影响到原始对象
+- 使用`Object.assign()`或者`...`解构赋值,即可解决大部分问题
+- 遇到深层对象时,使用`lodash`的`cloneDeep()`方法,即可解决问题
+  
+> 多类型字段显示
+- 使用`key-value`形式,通过`key`获取`value`,即可实现多类型字段显示
+- 使用`computed`计算属性
+- 减少过多的重复的判断
+
+## 路由
+### 使用懒加载路由
+> 建议
+- 不要像产品一样引入所有页面，会造成严重卡顿和资源浪费，大多数情况下应该使用懒加载，组件使用promise
+- 魔法注释并不是注释，不要同一个模块使用不同的魔法注释，也不要不同模块使用一样的魔法注释，必要时使用魔法注释分包
+- 详情页穿id可以建议使用动态传参，可以避免空页面
+> 错误示例
+
+![](https://s3.bmp.ovh/imgs/2023/09/08/f4d5d4e247ff92a3.png)
+
+![](https://s3.bmp.ovh/imgs/2023/09/08/4bcca46dd6074619.png)
+
+
+### 传参
+- 详情id使用动态传参，复制空页面访问
+- name保持全局唯一，建议加上模块前缀
+- 参数过多的时候使用props传参，便于维护
+
+### 示例
+```js
+{
+  path: '/path/',
+  name: 'name', // name应该唯一
+  component: () => import('@/views/path'),
+  meta:{
+    title:'名称'
+  }
+},
+{
+  path: '/path/:id',
+  name: 'detailName',
+  component: () => import('@/views/path'),
+  meta:{
+    title:'详情'
+  }
+},
+```
 
 ## 其他问题
 ### 组件通信
@@ -194,28 +261,6 @@ export const api_dels = (params) => post('api/dels', params)
 - 好处: 避免新增时`id`重复,造成数据混乱
 - 注意: 弹窗`visible`状态改变需要放在最后
 
-### 变量
-> 一些建议
-- 不建议使用`reactive`定义`data`
-  - 失去`composition`块结构的优势
-  - 变量过多时，不利于管理
-  - 无法使用`shallowRef`优化性能
-  
-> 定义响应式对象，如何替换对象中的值
-- 使用`ref`定义对象
-- 如果不需要属性是响应式（如获取详情）则使用`shallowRef`定义提高性能
-- 使用`toRaw`获取原始对象，修改原始对象的值，即可实现响应式
-
-> 浅拷贝造成的数据异常
-> 
-> 使用弹窗时,直接给对象复制,导致浅拷贝,修改弹窗中的值,会影响到原始对象
-- 使用`Object.assign()`或者`...`解构赋值,即可解决大部分问题
-- 遇到深层对象时,使用`lodash`的`cloneDeep()`方法,即可解决问题
-  
-> 多类型字段显示
-- 使用`key-value`形式,通过`key`获取`value`,即可实现多类型字段显示
-- 使用`computed`计算属性
-- 减少过多的重复的判断
 
 ### css样式
 > 一些建议
