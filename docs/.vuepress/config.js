@@ -4,7 +4,7 @@ import { shikiPlugin } from '@vuepress/plugin-shiki'
 
 export default defineUserConfig({
   lang: 'zh-CN',
-  title: '乱七八糟的说明文档',
+  title: '前端开发文档',
   description: '日常工作写的组件与方法说明文档',
   base: '/development-documentation/',
   theme: defaultTheme({
