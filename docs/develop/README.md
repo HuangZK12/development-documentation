@@ -62,7 +62,7 @@ export const api_add = (params) => post('api/add', params)
 export const api_edit = (params) => post('api/edit', params)
 
 // 详情
-export const api_info = (officeId) => get(`api/info/${officeId}`)
+export const api_info = (id) => get(`api/info/${id}`)
 
 // 删除
 export const api_dels = (params) => post('api/dels', params)
@@ -176,6 +176,12 @@ export const api_dels = (params) => post('api/dels', params)
 ```
 
 ## 表单
+### 格式化参数
+> 数据与提交参数格式不同的情况下,修改参数
+- 禁止直接修改原对象,容易造成数据渲染异常
+- 建议深度克隆一份,或者使用对象结构,数据映射等方式修改
+- 建议表单字段与后台接口`api`字段一样,获取详情直接覆盖,确保编辑时参数正常
+
 
 ### 表单验证
 - prop必传
@@ -211,12 +217,12 @@ export const api_dels = (params) => post('api/dels', params)
 ## 路由
 ### 使用懒加载路由
 > 建议
-- 不要像产品一样引入所有页面，会造成严重卡顿和资源浪费，大多数情况下应该使用懒加载，组件使用promise
+<!-- - 不要像产品一样引入所有页面，会造成严重卡顿和资源浪费，大多数情况下应该使用懒加载，组件使用promise -->
 - 魔法注释并不是注释，不要同一个模块使用不同的魔法注释，也不要不同模块使用一样的魔法注释，必要时使用魔法注释分包
 - 详情页穿id可以建议使用动态传参，可以避免空页面
 > 错误示例
 
-![](https://s3.bmp.ovh/imgs/2023/09/08/f4d5d4e247ff92a3.png)
+<!-- ![](https://s3.bmp.ovh/imgs/2023/09/08/f4d5d4e247ff92a3.png) -->
 
 ![](https://s3.bmp.ovh/imgs/2023/09/08/4bcca46dd6074619.png)
 
