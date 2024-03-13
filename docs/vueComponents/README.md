@@ -324,3 +324,59 @@ const mapFileList = (list) => list.map(file => {
 | input | 上传文件列表发生变化时触发 | value |
 | update:fileId | 上传的文件id发生变化时触发 | value |
 | update:fileName | 上传的文件名发生变化时触发 | value |
+
+
+
+
+
+
+## Teleport
+> 该组件是一个手动封装的Teleport组件，用于将组件挂载到任何指定的元素上。
+
+### 组件代码
+```vue
+<template>
+  <div ref="el">
+    <slot></slot>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+
+const el = ref(null);
+const props = defineProps({
+  to: {
+    type: String,
+    default: 'body'
+  }
+});
+onMounted(() => {
+  teleport();
+});
+onBeforeUnmount(() => {
+  unTeleport();
+});
+const teleport = () => {
+  const target = document.querySelector(props.to) || document[props.to];
+  if (target && el.value) {
+    target.appendChild(el.value);
+  }
+}
+const unTeleport = () => {
+  if (el.value && el.value.parentNode) {
+    el.value.parentNode.appendChild(el.value);
+  }
+}
+</script>
+```
+
+### 使用方法
+
+在需要使用该组件的页面中，引入组件并传入相应的参数即可。
+
+### 参数说明
+
+| 属性 | 默认值 | 类型   | 备注       |
+| ---- | ------ | ------ | ---------- |
+| to   | body   | String | 插入的元素 |
