@@ -297,37 +297,33 @@ const mapFileList = (list) => list.map(file => {
 ```
 ### Props
 
-| 参数 | 说明 | 类型 | 可选值 | 默认值 |  
-|:-|:-|:-|:-|:-|
-| avatar | 是否作为头像上传 | Boolean | - | false |
-| api | 自定义上传接口方法 | Function | - | - |
-| limit | 上传文件的数量限制 | Number | - | 1 |
-| action | 上传文件的接口地址 | String | - | /file/uploads |  
-| buttonType | 上传按钮的类型 | String | - | default |
-| fileType | 支持的文件类型 | Array/String | - | [] |
-| fileTypeLength | 显示文件类型省略号的长度 | Number/String | - | 6 |
-| fileSize | 单文件大小限制,单位M | Number | - | 1024 |
-| hideTips | 是否隐藏提示信息 | Boolean | - | false |
-| text | 按钮文字 | String | - | '点击上传' |
-| value | 已上传的文件列表,用于回显 | Array | - | [] |
-| fileId | 上传的文件id,用于v-model双向绑定 | String | - | - |
-| fileName | 上传的文件名,用于v-model双向绑定 | String | - | - |
-| filesPosition | 文件列表显示位置 | String | top/bottom | right |
+| 参数           | 说明                             | 类型          | 可选值     | 默认值        |
+| :------------- | :------------------------------- | :------------ | :--------- | :------------ |
+| avatar         | 是否作为头像上传                 | Boolean       | -          | false         |
+| api            | 自定义上传接口方法               | Function      | -          | -             |
+| limit          | 上传文件的数量限制               | Number        | -          | 1             |
+| action         | 上传文件的接口地址               | String        | -          | /file/uploads |
+| buttonType     | 上传按钮的类型                   | String        | -          | default       |
+| fileType       | 支持的文件类型                   | Array/String  | -          | []            |
+| fileTypeLength | 显示文件类型省略号的长度         | Number/String | -          | 6             |
+| fileSize       | 单文件大小限制,单位M             | Number        | -          | 1024          |
+| hideTips       | 是否隐藏提示信息                 | Boolean       | -          | false         |
+| text           | 按钮文字                         | String        | -          | '点击上传'    |
+| value          | 已上传的文件列表,用于回显        | Array         | -          | []            |
+| fileId         | 上传的文件id,用于v-model双向绑定 | String        | -          | -             |
+| fileName       | 上传的文件名,用于v-model双向绑定 | String        | -          | -             |
+| filesPosition  | 文件列表显示位置                 | String        | top/bottom | right         |
 
 ### Events  
 
-| 事件名 | 说明 | 回调参数 |  
-|:-|:-|:-|
-| success | 上传成功时触发 | response, file, fileList |
-| error | 上传失败时触发 | error, file, fileList |
-| remove | 文件删除时触发 | file |
-| input | 上传文件列表发生变化时触发 | value |
-| update:fileId | 上传的文件id发生变化时触发 | value |
-| update:fileName | 上传的文件名发生变化时触发 | value |
-
-
-
-
+| 事件名          | 说明                       | 回调参数                 |
+| :-------------- | :------------------------- | :----------------------- |
+| success         | 上传成功时触发             | response, file, fileList |
+| error           | 上传失败时触发             | error, file, fileList    |
+| remove          | 文件删除时触发             | file                     |
+| input           | 上传文件列表发生变化时触发 | value                    |
+| update:fileId   | 上传的文件id发生变化时触发 | value                    |
+| update:fileName | 上传的文件名发生变化时触发 | value                    |
 
 
 ## Teleport
@@ -377,6 +373,6 @@ const unTeleport = () => {
 
 ### 参数说明
 
-| 属性 | 默认值 | 类型   | 备注       |
-| ---- | ------ | ------ | ---------- |
-| to   | body   | String | 插入的元素 |
+| 属性 | 默认值 | 类型   | 备注               |
+| ---- | ------ | ------ | ------------------ |
+| to   | body   | String | 插入的元素的选择器 |
