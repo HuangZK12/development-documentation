@@ -10,7 +10,7 @@ export default defineUserConfig({
   theme: defaultTheme({
     navbar: [
       {
-        text: 'Hmoe',
+        text: 'Home',
         link: '/'
       },
       {
@@ -41,6 +41,10 @@ export default defineUserConfig({
         text: '开发相关',
         link: '/develop/'
       },
+      {
+        text: '个人简历',
+        link: '/resume/'
+      }
     ]
   }),
   plugins: [

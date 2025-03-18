@@ -5,6 +5,9 @@ actions:
   - text: 快速上手
     link: vueComponents
     type: primary
+  - text: 我的简历
+    link: resume
+    type: primary
   - text: GitHub
     link: https://github.com/HuangZK12
     type: secondary
